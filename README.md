@@ -1,5 +1,7 @@
 # Guide to the Catkin Build System
 
+The catkin build system uses two files: `package.xml` and `CMakeLists.txt`
+
 ## Package.xml
 
 ### depend
@@ -31,6 +33,40 @@ If you're using data structures from an external package, it's often not possibl
 However, if you're using algorithms (like a vision algorithm from OpenCV), then you may be able to get away with having a `build_depend` but no `build_export_depend`.
 By correctly restricting dependencies, a developer building against package will not have to install as many dependencies.
 
+## CMakeLists.txt
+
+### `find_package`
+`find_package` is a CMake command that essentially helps find required include and library paths as well as required compiler flags.
+Thus, this is only required for build depenencies.
+(Note: Another method to achieve this functionality is  `pkg-config`.)
+
+Using `find_package` outside of Catkin, a user would typically provide a mypackageConfig.cmake or FindMyPackage.cmake file which gets installed into the `CMAKE_MODULE_PATH`.
+With Catkin, this is a bit different as Catkin provides this `find_package` functionality without required a bunch of boilerplate code.
+For a Catkin package, one calls `find_package` on Catkin itself and the Catkin package is treated as a component; i.e.:
+```
+find_package(catkin COMPONENTS mypackage)
+```
+Some of the implementation details can be found in the links below.
+
+*See also*:
+- https://github.com/ros/catkin/blob/kinetic-devel/cmake/catkinConfig.cmake.in
+- https://github.com/ros/catkin/blob/kinetic-devel/cmake/templates/pkgConfig.cmake.in
+
+### `catkin_package`
+The `catkin_package` macro is needed in a package, say `my_package`, to define CMake variable exports.
+For example, what include directories are required to build against this package?
+
+
+#### `CATKIN_DEPENDS`
+Any package that appears as `CATKIN_DEPENDS` must be listed in the `find_package(catkin ...)` command.
+E.g.:
+```
+find_package(catkin REQUIRED COMPONENTS some_package)
+catkin_package(CATKIN_DEPENDS some_package)
+```
+
+
 ### See Also
 - http://wiki.ros.org/catkin/package.xml
 - http://docs.ros.org/melodic/api/catkin/html/howto/format1/catkin_library_dependencies.html
+- https://github.com/ros/catkin/blob/kinetic-devel/cmake/catkin_package.cmake
