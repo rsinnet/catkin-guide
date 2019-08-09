@@ -2,7 +2,7 @@
 
 The catkin build system uses two files: `package.xml` and `CMakeLists.txt`
 
-## `Package.xml`
+## `package.xml`
 
 ### `depend`
 The `depend` tag is equivalent to adding `build_depend`, `build_export_depend`, and `exec_depend`.
