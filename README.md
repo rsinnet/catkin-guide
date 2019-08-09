@@ -14,7 +14,7 @@ Any included code is compiled into your binaries.
 ### `build_depend`
 
 This is for specifying packages which are required at build time.
-Anything listed here will also need to be `find-packaged()`-ed in the `CMakeListss.txt` file.
+Anything listed here will also need to be `find-packaged()`-ed in the `CMakeLists.txt` file.
 
 For packages with C++ headers and/or libraries, a `build_depend` tag is required.
 
