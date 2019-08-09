@@ -59,6 +59,8 @@ If using `find_package` with non-Catkin components, there is a ROS Package that 
 ### `catkin_package`
 The `catkin_package` macro is needed in a package, say `my_package`, to define CMake variable exports.
 For example, what include directories are required to build against this package?
+It's worth reading the documentation for the command from the code:
+https://github.com/ros/catkin/blob/4a7310348298089837f70c434788cdb83928ccbb/cmake/catkin_package.cmake#L2-L79
 
 
 #### `CATKIN_DEPENDS`
